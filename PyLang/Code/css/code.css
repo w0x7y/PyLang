@@ -27,7 +27,7 @@ body {
 .code-topbar {
   flex-shrink: 0;
   padding: 20px 28px 16px;
-  border-bottom: 1px solid var(--outline-variant);
+  border-bottom: 1px solid var(--inverse-on-surface);
   background: var(--surface);
   display: flex;
   align-items: center;
@@ -38,13 +38,13 @@ body {
 .code-topbar__left h1 {
   font: var(--font-display-lg);
   letter-spacing: var(--letter-spacing-display-lg);
-  color: var(--primary);
+  color: var(--on-surface);
   line-height: 1;
 }
 
 .code-topbar__left p {
   font: var(--font-body-md);
-  color: var(--on-surface-variant);
+  color: var(--on-surface);
   margin-top: 4px;
 }
 
@@ -107,7 +107,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--outline-variant);
+  border-right: 1px solid var(--inverse-on-surface);
   overflow: hidden;
   min-width: 0;
 }
@@ -116,7 +116,7 @@ body {
   flex-shrink: 0;
   padding: 8px;
   background: var(--surface-container-low);
-  border-bottom: 1px solid var(--outline-variant);
+  border-bottom: 1px solid var(--inverse-on-surface);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -152,7 +152,7 @@ body {
 
 .CodeMirror-gutters {
   background: var(--surface-container-low) !important;
-  border-right: 1px solid var(--outline-variant) !important;
+  border-right: 1px solid var(--inverse-on-surface) !important;
 }
 
 .CodeMirror-linenumber {
@@ -300,7 +300,7 @@ body {
 .resize-handle {
   width: 2px;
   cursor: col-resize;
-  background: var(--outline-variant);
+  background: var(--inverse-on-surface);
   flex-shrink: 0;
   transition: background 0.15s;
 }
@@ -313,7 +313,7 @@ body {
 
   .code-workspace { flex-direction: column; }
 
-  .editor-panel { border-right: none; border-bottom: 1px solid var(--outline-variant); }
+  .editor-panel { border-right: none; border-bottom: 1px solid var(--inverse-on-surface); }
 
   .resize-handle { display: none; }
 }

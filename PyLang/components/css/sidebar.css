@@ -23,7 +23,7 @@ body {
 
     background: var(--surface);
 
-    border-right: 1px solid var(--outline-variant);
+    border-right: 1px solid var(--inverse-on-surface);
 
     padding: var(--space-xl) var(--space-lg);
 

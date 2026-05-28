@@ -4,16 +4,30 @@ fetch("../components/sidebar.html")
 
         document.getElementById("sidebar-container").innerHTML = data;
 
-        const currentPage =
-            window.location.pathname.split("/").pop();
+        // Get current folder (Learn / Code / Shop / Profile)
+        const pathParts = window.location.pathname
+            .split("/")
+            .filter(Boolean);
 
-        const navItems =
-            document.querySelectorAll(".nav-item");
+        let currentPage = pathParts.pop();
+
+        if (currentPage === "index.html") {
+            currentPage = pathParts.pop();
+        }
+
+        const navItems = document.querySelectorAll(".nav-item");
 
         navItems.forEach(item => {
 
-            const itemPage =
-                item.getAttribute("href").split("/").pop();
+            const hrefParts = item.getAttribute("href")
+                .split("/")
+                .filter(Boolean);
+
+            let itemPage = hrefParts.pop();
+
+            if (itemPage === "index.html") {
+                itemPage = hrefParts.pop();
+            }
 
             if (currentPage === itemPage) {
                 item.classList.add("active");

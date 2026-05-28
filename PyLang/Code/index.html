@@ -265,7 +265,7 @@ print("Hello, PyLang!")
     termClear();
     removeIdleCursor();
 
-    await termTypeLine('▶ Running main.py…', 'info', 0);
+    await termTypeLine('Running main.py…', 'info', 0);
     termLine('', 'system');
 
     btnRun.classList.add('running');
@@ -282,14 +282,11 @@ print("Hello, PyLang!")
       await Sk.misceval.asyncToPromise(() =>
         Sk.importMainWithBody('<stdin>', false, src, true)
       );
-      termLine('', 'system');
-      termLine('✔ Done.', 'success');
     } catch (err) {
-      termLine('', 'system');
       const msg = err.toString();
       // Pretty-print Skulpt errors
       const clean = msg.replace(/^.*?Error:/, m => m);
-      termLine('✖ ' + clean, 'stderr');
+      termLine('! ' + clean, 'stderr');
     } finally {
       btnRun.classList.remove('running');
       btnRun.innerHTML = `

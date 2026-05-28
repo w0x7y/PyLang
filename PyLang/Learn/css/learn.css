@@ -1,0 +1,192 @@
+@import '/landing_page/css/variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-family-sans);
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Base Icon Setup --- */
+.icon-filled {
+  font-size: 24px;
+  font-variation-settings: 'FILL' 1;
+}
+
+/* --- Component Styles --- */
+
+/* Hidden on mobile, flex on desktop (md: 768px) */
+.nav-banner {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-banner {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: none; 
+    z-index: 30;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}
+
+.stats-container {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  background-color: var(--surface-container);
+  border-radius: var(--radius-xl); /* rounded-2xl maps to 1.5rem */
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid var(--surface-bright);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm); /* gap-2 -> 8px */
+  font: var(--font-headline-md);
+}
+
+/* Vertical Dividers */
+.divider {
+  width: 1px;
+  height: 24px; /* h-6 */
+  background-color: var(--outline-variant);
+}
+
+/* Color Modifiers using your exact tokens */
+.text-secondary { 
+  color: var(--secondary); 
+}
+.text-tertiary { 
+  /* Maps to your tertiary-container intention */
+  color: var(--tertiary); 
+}
+.text-error { 
+  color: var(--error); 
+}
+
+/* Container to keep the map centered and responsive */
+.path-container {
+    max-width: 100%;
+    margin: 0;
+    margin-top: 5%;
+    padding: 0;
+}
+
+/* --- Updated Unit Header Box Styling --- */
+.unit-card {
+    background-color: var(--primary); /* Uses your bright brand green #74e930 */
+    color: var(--on-primary);        /* Uses your dark contrast green #133800 */
+    width: 100%;
+    max-width: 350px;                /* Keeps the card clean and well-proportioned */
+    padding: 16px 20px;
+    margin: auto;               /* Centers the card horizontally on the page */
+    margin-top: 50px;           /* Adds space above the card */
+    border-radius: var(--radius-xl); /* Matches your 1.5rem / 24px layout corners */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;                        /* Consistent spacing between lines */
+}
+
+.unit-title {
+    font-size: 22px;
+    font-weight: 800;                /* Extra bold header font style */
+}
+
+.unit-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.9;                    /* Gives it that clean, semi-translucent look */
+    margin-bottom: 4px;
+}
+
+/* Container for the tracking indicator track */
+.unit-progress-bar {
+    width: 100%;
+    height: 14px;
+    background-color: rgba(0, 0, 0, 0.15); /* Soft, darker tinted track background */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Inner filling line showing user completion */
+.unit-progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--on-primary);
+    border-radius: 20px;
+    transition: width 0.6s ease-out;
+}
+
+/* Styling the SVG Node Groups */
+.path-node {
+    cursor: pointer;
+}
+
+/* Base style for the node squares - using custom property variables falling back to locked */
+.path-node rect {
+    fill: var(--node-fill, var(--surface-container-highest)); 
+    transition: fill 0.2s ease, filter 0.2s ease;
+}
+
+/* Hover Effect: brighten the node color slightly regardless of current state color */
+.path-node:hover rect {
+    filter: brightness(1.2);
+}
+
+/* Styling for the HTML wrapper inside the SVG foreignObject */
+.node-icon-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Allows click events to pass through to the <g> tag */
+}
+
+/* Styling the Material Symbol inside the node */
+.node-icon-wrapper .material-symbols-outlined {
+    color: var(--node-icon-color, var(--outline));
+    font-size: 24px; /* Adjust size to fit neatly inside your 50x50 box */
+    user-select: none; /* Prevents the user from accidentally highlighting the icon text */
+}
+
+/* --- Dynamic SVG Path State Colors --- */
+.line-completed {
+    stroke: var(--primary); /* #74e930 */
+}
+
+.line-active {
+    stroke: var(--on-primary); /* #133800 */
+}
+
+.line-locked {
+    stroke: var(--outline-variant); /* #3f4a36 */
+}
+
+/* --- Dynamic SVG Node State Colors --- */
+.node-completed {
+    --node-fill: var(--primary);              /* #74e930 */
+    --node-icon-color: var(--on-primary);     /* #133800 */
+}
+
+.node-active {
+    --node-fill: var(--secondary);            /* #edc22b */
+    --node-icon-color: var(--on-secondary);   /* #3c2f00 */
+}
+
+.node-locked {
+    --node-fill: var(--surface-container-highest); /* #2a373c */
+    --node-icon-color: var(--outline);            /* #88957d */
+}
