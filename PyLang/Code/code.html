@@ -1,18 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Code - PyLang</title>
-    <link rel="stylesheet" href="./css/code.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code - PyLang</title>
+
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+
+  <!-- Page styles -->
+  <link rel="stylesheet" href="./css/code.css">
 </head>
 <body>
 
-    <div id="sidebar-container"></div>
+  <!-- Sidebar -->
+  <div id="sidebar-container"></div>
 
-    <main>
-        <h1>Code Page</h1>
-        <p>Welcome to the Code page!</p>
-    </main>
+  <!-- Main shell -->
+  <div class="code-shell">
 
-    <script src="../components/js/loadSidebar.js"></script>
+    <!-- TOP: title + run button -->
+    <div class="code-topbar">
+      <div class="code-topbar__left">
+        <h1>Code Runner</h1>
+        <p>Write Python below and click Run &mdash; output appears in the terminal.</p>
+      </div>
+      <button class="btn-run" id="btn-run" title="Run (Ctrl+Enter)">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 2.5a.5.5 0 0 1 .757-.429l10 5.5a.5.5 0 0 1 0 .858l-10 5.5A.5.5 0 0 1 3 13.5v-11z"/>
+        </svg>
+        Run
+      </button>
+    </div>
+
+    <!-- BOTTOM: editor + terminal -->
+    <div class="code-workspace">
+
+      <!-- LEFT: editor -->
+      <div class="editor-panel" id="editor-panel">
+        <div class="panel-header">
+
+          <span class="panel-header__title">main.py</span>
+        </div>
+        <div class="editor-wrap">
+          <textarea id="code-editor"></textarea>
+        </div>
+      </div>
+
+      <!-- Drag handle -->
+      <div class="resize-handle" id="resize-handle"></div>
+
+      <!-- RIGHT: terminal -->
+      <div class="terminal-panel" id="terminal-panel">
+        <div class="panel-header">
+            
+          <span class="panel-header__title">output</span>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+          <!-- lines injected by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Skulpt -->
+    <script src="https://unpkg.com/skulpt@latest/dist/skulpt.min.js"></script>
+<script src="https://unpkg.com/skulpt@latest/dist/skulpt-stdlib.js"></script>
+
+  <!-- CodeMirror core + Python mode + addons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', function() {
+  // ─────────────────────────────────────────────
+  //  CodeMirror setup
+  // ─────────────────────────────────────────────
+  const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+    mode: 'python',
+    lineNumbers: true,
+    indentUnit: 4,
+    tabSize: 4,
+    indentWithTabs: false,
+    autoCloseBrackets: true,
+    matchBrackets: true,
+    styleActiveLine: true,
+    lineWrapping: false,
+    extraKeys: {
+      'Tab': cm => cm.execCommand('indentMore'),
+      'Shift-Tab': cm => cm.execCommand('indentLess'),
+      'Ctrl-Enter': () => runCode(),
+      'Cmd-Enter':  () => runCode(),
+      'Ctrl-/': cm => cm.execCommand('toggleComment'),
+    }
+  });
+
+  // Starter code
+  editor.setValue(
+`# Welcome to PyLang Code Runner!
+# Press Ctrl+Enter or click Run to execute.
+
+print("Hello, PyLang!")
+`);
+
+  // Refresh after layout settles
+  setTimeout(() => editor.refresh(), 50);
+
+  // ─────────────────────────────────────────────
+  //  Terminal helpers
+  // ─────────────────────────────────────────────
+  const termBody = document.getElementById('terminal-body');
+
+  function termClear() {
+    termBody.innerHTML = '';
+  }
+
+  function termLine(text, cls = 'stdout') {
+    const div = document.createElement('div');
+    div.className = `t-line t-line--${cls}`;
+    div.textContent = text;
+    termBody.appendChild(div);
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+
+  // Typed-out line animation (char by char)
+  function termTypeLine(text, cls = 'system', delay = 0) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = `t-line t-line--${cls}`;
+        termBody.appendChild(div);
+        let i = 0;
+        const iv = setInterval(() => {
+          div.textContent += text[i++];
+          termBody.scrollTop = termBody.scrollHeight;
+          if (i >= text.length) { clearInterval(iv); resolve(); }
+        }, 18);
+      }, delay);
+    });
+  }
+
+  // Blinking idle cursor
+  let cursorEl = null;
+  function showIdleCursor() {
+    removeIdleCursor();
+    const div = document.createElement('div');
+    div.className = 't-line t-line--system t-cursor-line';
+    div.innerHTML = '<span class="t-cursor"></span>';
+    div.id = 'idle-cursor';
+    termBody.appendChild(div);
+    termBody.scrollTop = termBody.scrollHeight;
+    cursorEl = div;
+  }
+
+  function removeIdleCursor() {
+    const el = document.getElementById('idle-cursor');
+    if (el) el.remove();
+    cursorEl = null;
+  }
+
+  // Boot greeting
+  async function termBoot() {
+    termClear();
+    await termTypeLine('PyLang Terminal  v1.0', 'system', 0);
+    await termTypeLine('Python 3 (Skulpt)  — ready.', 'system', 60);
+    termLine('', 'system');
+    showIdleCursor();
+  }
+
+  termBoot();
+
+  // ─────────────────────────────────────────────
+  //  Input support via promise queue
+  // ─────────────────────────────────────────────
+  let inputResolve = null;
+
+  function termAskInput(prompt) {
+    return new Promise(resolve => {
+      inputResolve = resolve;
+      removeIdleCursor();
+
+      const row = document.createElement('div');
+      row.className = 't-prompt-row';
+
+      const sym = document.createElement('span');
+      sym.className = 't-prompt-symbol';
+      sym.textContent = prompt || '› ';
+
+      const inp = document.createElement('input');
+      inp.className = 't-input';
+      inp.type = 'text';
+      inp.autocomplete = 'off';
+      inp.spellcheck = false;
+
+      row.appendChild(sym);
+      row.appendChild(inp);
+      termBody.appendChild(row);
+      termBody.scrollTop = termBody.scrollHeight;
+      inp.focus();
+
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const val = inp.value;
+          // freeze the row — turn into a plain line
+          row.remove();
+          const echo = document.createElement('div');
+          echo.className = 't-line t-line--stdout';
+          echo.textContent = (prompt || '› ') + val;
+          termBody.appendChild(echo);
+          termBody.scrollTop = termBody.scrollHeight;
+          if (inputResolve) { inputResolve(val); inputResolve = null; }
+        }
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────────
+  //  Skulpt configuration
+  // ─────────────────────────────────────────────
+  function configureSkulpt() {
+    Sk.configure({
+      output(text) {
+        // Skulpt sends \n-terminated strings; split into lines
+        const lines = text.split('\n');
+        lines.forEach((ln, i) => {
+          // last element after a trailing \n is empty — skip
+          if (i === lines.length - 1 && ln === '') return;
+          termLine(ln, 'stdout');
+        });
+      },
+      inputfun(prompt) {
+        return termAskInput(prompt);
+      },
+      inputfunTakesPrompt: true,
+      read(file) {
+        if (Sk.builtinFiles === undefined ||
+            Sk.builtinFiles['files'][file] === undefined) {
+          throw new Error(`File not found: '${file}'`);
+        }
+        return Sk.builtinFiles['files'][file];
+      },
+      execLimit: 30000,
+    });
+  }
+
+  // ─────────────────────────────────────────────
+  //  Run code
+  // ─────────────────────────────────────────────
+  const btnRun = document.getElementById('btn-run');
+
+  async function runCode() {
+    if (btnRun.classList.contains('running')) return;
+
+    const src = editor.getValue();
+    if (!src.trim()) return;
+
+    // Reset terminal
+    termClear();
+    removeIdleCursor();
+
+    await termTypeLine('▶ Running main.py…', 'info', 0);
+    termLine('', 'system');
+
+    btnRun.classList.add('running');
+    btnRun.innerHTML = `
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="4" height="10" rx="1"/>
+        <rect x="9" y="3" width="4" height="10" rx="1"/>
+      </svg>
+      Running…`;
+
+    configureSkulpt();
+
+    try {
+      await Sk.misceval.asyncToPromise(() =>
+        Sk.importMainWithBody('<stdin>', false, src, true)
+      );
+      termLine('', 'system');
+      termLine('✔ Done.', 'success');
+    } catch (err) {
+      termLine('', 'system');
+      const msg = err.toString();
+      // Pretty-print Skulpt errors
+      const clean = msg.replace(/^.*?Error:/, m => m);
+      termLine('✖ ' + clean, 'stderr');
+    } finally {
+      btnRun.classList.remove('running');
+      btnRun.innerHTML = `
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 2.5a.5.5 0 0 1 .757-.429l10 5.5a.5.5 0 0 1 0 .858l-10 5.5A.5.5 0 0 1 3 13.5v-11z"/>
+        </svg>
+        Run`;
+      showIdleCursor();
+    }
+  }
+
+  btnRun.addEventListener('click', runCode);
+
+  // ─────────────────────────────────────────────
+  //  Drag-to-resize panels
+  // (inside DOMContentLoaded)
+  // ─────────────────────────────────────────────
+  const handle      = document.getElementById('resize-handle');
+  const editorPanel = document.getElementById('editor-panel');
+  const termPanel   = document.getElementById('terminal-panel');
+
+  let dragging = false, startX = 0, startEW = 0, startTW = 0;
+
+  handle.addEventListener('mousedown', e => {
+    dragging = true;
+    startX  = e.clientX;
+    startEW = editorPanel.getBoundingClientRect().width;
+    startTW = termPanel.getBoundingClientRect().width;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const newEW = Math.max(200, startEW + dx);
+    const newTW = Math.max(200, startTW - dx);
+    editorPanel.style.flex = 'none';
+    editorPanel.style.width = newEW + 'px';
+    termPanel.style.flex = 'none';
+    termPanel.style.width = newTW + 'px';
+    editor.refresh();
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    editor.refresh();
+  });
+
+  }); // end DOMContentLoaded
+  </script>
+
+  <script src="../components/js/loadSidebar.js"></script>
 </body>
 </html>
