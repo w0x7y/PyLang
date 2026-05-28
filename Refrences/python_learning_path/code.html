@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PyLang - Learning Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#082100",
+                        "on-secondary-container": "#4e3e00",
+                        "on-secondary-fixed": "#231b00",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#87fe45",
+                        "inverse-on-surface": "#263237",
+                        "outline-variant": "#3f4a36",
+                        "on-tertiary": "#00315b",
+                        "on-surface-variant": "#becbb1",
+                        "surface-container-lowest": "#041015",
+                        "tertiary-fixed-dim": "#a1c9ff",
+                        "surface-container": "#152126",
+                        "on-primary": "#133800",
+                        "secondary-fixed": "#ffe086",
+                        "surface-container-low": "#111d22",
+                        "secondary": "#edc22b",
+                        "primary-fixed-dim": "#6be026",
+                        "tertiary": "#b1d1ff",
+                        "on-primary-container": "#1e5000",
+                        "inverse-primary": "#2b6c00",
+                        "surface-bright": "#2f3b40",
+                        "on-secondary": "#3c2f00",
+                        "on-tertiary-fixed": "#001c38",
+                        "surface-dim": "#09151a",
+                        "on-secondary-fixed-variant": "#574500",
+                        "tertiary-container": "#7db7ff",
+                        "secondary-container": "#cfa700",
+                        "primary-container": "#58cc02",
+                        "surface": "#09151a",
+                        "inverse-surface": "#d7e5eb",
+                        "on-primary-fixed-variant": "#1f5100",
+                        "on-tertiary-fixed-variant": "#004880",
+                        "outline": "#88957d",
+                        "on-background": "#d7e5eb",
+                        "on-surface": "#d7e5eb",
+                        "surface-container-highest": "#2a373c",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#00477e",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#202c31",
+                        "tertiary-fixed": "#d3e4ff",
+                        "background": "#09151a",
+                        "surface-variant": "#2a373c",
+                        "surface-tint": "#6be026",
+                        "secondary-fixed-dim": "#edc22b",
+                        "primary": "#74e930"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "space-sm": "8px",
+                        "unit": "4px",
+                        "container-margin": "20px",
+                        "space-md": "16px",
+                        "space-xs": "4px",
+                        "space-lg": "24px",
+                        "space-xl": "32px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-caps": ["Be Vietnam Pro"],
+                        "display-lg-mobile": ["Be Vietnam Pro"],
+                        "label-code": ["JetBrains Mono"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "display-lg": ["Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { lineHeight: "26px", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "800" }],
+                        "display-lg-mobile": ["24px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "800" }],
+                        "label-code": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+                        "headline-md": ["20px", { lineHeight: "28px", fontWeight: "700" }],
+                        "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .squish-active {
+            border-bottom-width: 4px;
+            border-bottom-color: #1e5000; /* Darker primary for shadow */
+            transition: all 0.1s ease;
+        }
+        .squish-active:active {
+            border-bottom-width: 0px;
+            transform: translateY(4px);
+            margin-bottom: 4px; /* Maintain flow */
+        }
+        
+        .squish-secondary {
+            border-bottom-width: 4px;
+            border-bottom-color: #cfa700; /* Darker secondary for shadow */
+            transition: all 0.1s ease;
+        }
+        .squish-secondary:active {
+            border-bottom-width: 0px;
+            transform: translateY(4px);
+            margin-bottom: 4px;
+        }
+
+        .squish-locked {
+            border-bottom-width: 4px;
+            border-bottom-color: #202c31; /* Darker surface variant */
+            transition: all 0.1s ease;
+        }
+
+        .path-line {
+            position: absolute;
+            width: 8px;
+            background-color: #2a373c; /* surface-variant */
+            z-index: -1;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+        }
+        .path-line-active {
+            background-color: #58cc02; /* primary-container */
+        }
+        
+        /* Floating animation for character */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile Only - Replaced by Top Stats on Desktop usually, but keeping as requested for structure) -->
+<header class="md:hidden fixed top-0 w-full z-50 flex justify-between items-center px-space-lg h-16 max-w-[1024px] mx-auto bg-background border-b-2 border-surface-variant">
+<div class="font-display-lg-mobile text-display-lg-mobile text-primary uppercase tracking-tighter">PyLang</div>
+<div class="flex gap-space-md items-center">
+<div class="flex items-center gap-1 text-secondary font-headline-md text-headline-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span>12</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary-container font-headline-md text-headline-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span>450</span>
+</div>
+<div class="flex items-center gap-1 text-error font-headline-md text-headline-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>5</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 p-space-md gap-space-sm bg-background border-r-2 border-surface-variant z-40">
+<div class="mb-space-lg px-space-md pt-space-md">
+<div class="font-display-lg text-display-lg text-primary uppercase tracking-tighter">PyLang</div>
+</div>
+<div class="flex flex-col gap-space-xs flex-grow">
+<!-- Active Tab: Learn -->
+<a class="flex items-center gap-space-md bg-primary-container text-on-primary-container rounded-xl px-space-md py-space-sm border-b-4 border-primary font-label-caps text-label-caps translate-y-[2px] transition-all duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+                Learn
+            </a>
+<a class="flex items-center gap-space-md text-on-surface-variant px-space-md py-space-sm border-b-4 border-transparent hover:bg-surface-container-high hover:border-surface-variant font-label-caps text-label-caps rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+                Home
+            </a>
+<a class="flex items-center gap-space-md text-on-surface-variant px-space-md py-space-sm border-b-4 border-transparent hover:bg-surface-container-high hover:border-surface-variant font-label-caps text-label-caps rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">exercise</span>
+                Practice
+            </a>
+<a class="flex items-center gap-space-md text-on-surface-variant px-space-md py-space-sm border-b-4 border-transparent hover:bg-surface-container-high hover:border-surface-variant font-label-caps text-label-caps rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+                Leaderboard
+            </a>
+<a class="flex items-center gap-space-md text-on-surface-variant px-space-md py-space-sm border-b-4 border-transparent hover:bg-surface-container-high hover:border-surface-variant font-label-caps text-label-caps rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+                Shop
+            </a>
+<a class="flex items-center gap-space-md text-on-surface-variant px-space-md py-space-sm border-b-4 border-transparent hover:bg-surface-container-high hover:border-surface-variant font-label-caps text-label-caps rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+                Profile
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 pt-20 md:pt-0 min-h-screen overflow-x-hidden relative">
+<!-- Desktop Top Stats Bar -->
+<div class="hidden md:flex sticky top-0 bg-background/90 backdrop-blur-md z-30 justify-center items-center py-space-md px-space-lg w-full max-w-[1024px] mx-auto">
+<div class="flex gap-space-lg items-center bg-surface-container rounded-2xl px-space-lg py-space-sm border-2 border-surface-variant">
+<div class="flex items-center gap-2 text-secondary font-headline-md text-headline-md">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span>12</span>
+</div>
+<div class="w-px h-6 bg-surface-variant"></div>
+<div class="flex items-center gap-2 text-tertiary-container font-headline-md text-headline-md">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span>450</span>
+</div>
+<div class="w-px h-6 bg-surface-variant"></div>
+<div class="flex items-center gap-2 text-error font-headline-md text-headline-md">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>5</span>
+</div>
+</div>
+</div>
+<!-- Learning Path Container -->
+<div class="max-w-[600px] mx-auto px-container-margin pb-32 pt-space-lg relative flex flex-col items-center">
+<!-- Unit Header 1 -->
+<div class="w-full bg-primary-container rounded-2xl p-space-md mb-space-lg border-b-4 border-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary opacity-20 rounded-full blur-xl -mr-10 -mt-10"></div>
+<h2 class="font-headline-md text-headline-md text-on-primary-container mb-1 relative z-10">Unit 1</h2>
+<p class="font-body-md text-body-md text-on-primary-fixed-variant relative z-10">Intro to Python &amp; Print Statements</p>
+<!-- Progress Bar inside header -->
+<div class="mt-space-md w-full h-4 bg-on-primary-container/20 rounded-full overflow-hidden flex relative z-10">
+<div class="h-full bg-primary w-full relative">
+<div class="absolute top-0 left-0 w-full h-1/2 bg-white/20"></div>
+</div>
+</div>
+</div>
+<!-- Path Canvas -->
+<div class="relative w-full py-space-lg flex flex-col items-center gap-12">
+<!-- Connecting Line (Background) -->
+<div class="absolute top-0 bottom-0 w-full flex justify-center pointer-events-none">
+<svg class="absolute h-full" height="100%" preserveaspectratio="none" width="100">
+<path d="M50 0 Q 80 150 50 300 T 50 600" fill="none" stroke="#58cc02" stroke-linecap="round" stroke-width="12"></path>
+</svg>
+</div>
+<!-- Node 1: Completed -->
+<div class="relative z-10 -ml-12">
+<button class="w-20 h-20 rounded-full bg-primary-container squish-active flex items-center justify-center group relative border-2 border-primary">
+<span class="material-symbols-outlined text-4xl text-on-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<!-- Tooltip -->
+<div class="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity bg-surface-container-highest text-on-surface px-space-md py-space-sm rounded-xl font-body-lg text-body-lg whitespace-nowrap border-2 border-surface-variant shadow-lg pointer-events-none">
+                            Hello World
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-surface-container-highest border-b-2 border-r-2 border-surface-variant transform rotate-45"></div>
+</div>
+</button>
+</div>
+<!-- Node 2: Completed -->
+<div class="relative z-10 ml-16">
+<button class="w-20 h-20 rounded-full bg-primary-container squish-active flex items-center justify-center group relative border-2 border-primary">
+<span class="material-symbols-outlined text-4xl text-on-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<!-- Tooltip -->
+<div class="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity bg-surface-container-highest text-on-surface px-space-md py-space-sm rounded-xl font-body-lg text-body-lg whitespace-nowrap border-2 border-surface-variant shadow-lg pointer-events-none">
+                            Variables
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-surface-container-highest border-b-2 border-r-2 border-surface-variant transform rotate-45"></div>
+</div>
+</button>
+</div>
+<!-- Node 3: Active (Current Lesson) -->
+<div class="relative z-10 mt-4">
+<!-- Crown/Active indicator -->
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 animate-bounce">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">keyboard_double_arrow_down</span>
+</div>
+<button class="w-24 h-24 rounded-full bg-primary squish-active flex items-center justify-center group relative border-4 border-on-primary-fixed shadow-[0_0_20px_rgba(88,204,2,0.4)]">
+<div class="absolute inset-2 border-4 border-white/20 rounded-full pointer-events-none"></div>
+<span class="material-symbols-outlined text-5xl text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<!-- Tooltip (Always visible for active) -->
+<div class="absolute -top-20 bg-surface text-on-surface px-space-md py-space-sm rounded-xl font-headline-md text-headline-md whitespace-nowrap border-2 border-surface-variant shadow-lg z-20">
+                            Data Types
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-surface border-b-2 border-r-2 border-surface-variant transform rotate-45"></div>
+</div>
+<!-- Circular Progress Ring (SVG) -->
+<svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="46" stroke="rgba(255,255,255,0.2)" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="none" r="46" stroke="#edc22b" stroke-dasharray="289" stroke-dashoffset="144" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+</button>
+<!-- Character Popup -->
+<div class="absolute top-4 -right-48 w-40 animate-float hidden md:block">
+<div class="bg-surface-container-high rounded-xl p-space-sm border-2 border-surface-variant shadow-lg relative mb-2">
+<p class="font-body-md text-body-md text-on-surface text-sm">You're doing great! Keep it up!</p>
+<div class="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-surface-container-high border-l-2 border-b-2 border-surface-variant transform rotate-45"></div>
+</div>
+<!-- Placeholder for Python mascot character -->
+<div class="w-16 h-16 bg-surface-variant rounded-full mx-auto flex items-center justify-center border-2 border-outline border-dashed">
+<span class="material-symbols-outlined text-outline">smart_toy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Unit Header 2 (Locked) -->
+<div class="w-full mt-space-lg">
+<!-- Path connecting units -->
+<div class="w-full flex justify-center h-16 relative">
+<svg class="absolute h-full" height="100%" preserveaspectratio="none" width="100">
+<path d="M50 0 L 50 100" fill="none" stroke="#2a373c" stroke-dasharray="12 12" stroke-linecap="round" stroke-width="12"></path>
+</svg>
+</div>
+<div class="w-full bg-surface-container rounded-2xl p-space-md mb-space-lg border-b-4 border-surface-container-highest relative overflow-hidden grayscale">
+<h2 class="font-headline-md text-headline-md text-on-surface-variant mb-1 relative z-10">Unit 2</h2>
+<p class="font-body-md text-body-md text-on-surface-variant/70 relative z-10">Lists &amp; Loops</p>
+<div class="mt-space-md w-full h-4 bg-surface-container-highest rounded-full overflow-hidden flex relative z-10">
+</div>
+</div>
+</div>
+<!-- Locked Nodes Canvas -->
+<div class="relative w-full py-space-lg flex flex-col items-center gap-12">
+<!-- Connecting Line (Locked) -->
+<div class="absolute top-0 bottom-0 w-full flex justify-center pointer-events-none">
+<svg class="absolute h-full" height="100%" preserveaspectratio="none" width="100">
+<path d="M50 0 Q 20 150 50 300 T 50 600" fill="none" stroke="#2a373c" stroke-linecap="round" stroke-width="12"></path>
+</svg>
+</div>
+<!-- Node 4: Locked -->
+<div class="relative z-10 ml-8">
+<button class="w-20 h-20 rounded-full bg-surface-container squish-locked flex items-center justify-center group relative border-2 border-surface-variant cursor-not-allowed">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">lock</span>
+</button>
+</div>
+<!-- Node 5: Locked -->
+<div class="relative z-10 -ml-12">
+<button class="w-20 h-20 rounded-full bg-surface-container squish-locked flex items-center justify-center group relative border-2 border-surface-variant cursor-not-allowed">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">lock</span>
+</button>
+</div>
+<!-- Node 6: Treasure (Locked) -->
+<div class="relative z-10 mt-8">
+<button class="w-24 h-24 rounded-full bg-surface-container squish-locked flex items-center justify-center group relative border-2 border-surface-variant cursor-not-allowed">
+<span class="material-symbols-outlined text-5xl text-on-surface-variant">redeem</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface-container-low border-t-2 border-surface-variant flex justify-around items-center py-space-sm px-space-md z-50 pb-safe">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary font-bold" href="#">
+<div class="bg-primary-container p-2 rounded-xl border-b-2 border-primary">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>

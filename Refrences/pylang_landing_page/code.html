@@ -1,0 +1,258 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PyLang - Learn Python the Fun Way</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#082100",
+                    "on-secondary-container": "#4e3e00",
+                    "on-secondary-fixed": "#231b00",
+                    "error": "#ffb4ab",
+                    "primary-fixed": "#87fe45",
+                    "inverse-on-surface": "#263237",
+                    "outline-variant": "#3f4a36",
+                    "on-tertiary": "#00315b",
+                    "on-surface-variant": "#becbb1",
+                    "surface-container-lowest": "#041015",
+                    "tertiary-fixed-dim": "#a1c9ff",
+                    "surface-container": "#152126",
+                    "on-primary": "#133800",
+                    "secondary-fixed": "#ffe086",
+                    "surface-container-low": "#111d22",
+                    "secondary": "#edc22b",
+                    "primary-fixed-dim": "#6be026",
+                    "tertiary": "#b1d1ff",
+                    "on-primary-container": "#1e5000",
+                    "inverse-primary": "#2b6c00",
+                    "surface-bright": "#2f3b40",
+                    "on-secondary": "#3c2f00",
+                    "on-tertiary-fixed": "#001c38",
+                    "surface-dim": "#09151a",
+                    "on-secondary-fixed-variant": "#574500",
+                    "tertiary-container": "#7db7ff",
+                    "secondary-container": "#cfa700",
+                    "primary-container": "#58cc02",
+                    "surface": "#09151a",
+                    "inverse-surface": "#d7e5eb",
+                    "on-primary-fixed-variant": "#1f5100",
+                    "on-tertiary-fixed-variant": "#004880",
+                    "outline": "#88957d",
+                    "on-background": "#d7e5eb",
+                    "on-surface": "#d7e5eb",
+                    "surface-container-highest": "#2a373c",
+                    "on-error-container": "#ffdad6",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#00477e",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#202c31",
+                    "tertiary-fixed": "#d3e4ff",
+                    "background": "#09151a",
+                    "surface-variant": "#2a373c",
+                    "surface-tint": "#6be026",
+                    "secondary-fixed-dim": "#edc22b",
+                    "primary": "#74e930"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "space-sm": "8px",
+                    "unit": "4px",
+                    "container-margin": "20px",
+                    "space-md": "16px",
+                    "space-xs": "4px",
+                    "space-lg": "24px",
+                    "space-xl": "32px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Be Vietnam Pro"
+                    ],
+                    "body-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "label-caps": [
+                            "Be Vietnam Pro"
+                    ],
+                    "display-lg-mobile": [
+                            "Be Vietnam Pro"
+                    ],
+                    "label-code": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "display-lg": [
+                            "Be Vietnam Pro"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "30px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "label-code": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .squish-btn-primary {
+            border-bottom-width: 4px;
+            border-color: #1e5000;
+        }
+        .squish-btn-primary:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+            margin-bottom: 4px;
+        }
+        .squish-btn-secondary {
+            border-bottom-width: 4px;
+            border-color: #2a373c;
+        }
+        .squish-btn-secondary:active {
+            transform: translateY(4px);
+            border-bottom-width: 0px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-space-lg h-16 bg-background dark:bg-background border-b-2 border-surface-variant flat no shadows">
+<div class="flex items-center h-full">
+  
+  <span class="font-display-lg text-display-lg text-primary tracking-tighter ml-2">PyLang</span>
+</div>
+<div class="hidden md:flex items-center gap-space-lg text-on-surface-variant">
+<span class="material-symbols-outlined text-primary font-bold hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer" data-icon="local_fire_department">local_fire_department</span>
+<span class="material-symbols-outlined hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer" data-icon="diamond">diamond</span>
+<span class="material-symbols-outlined hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer" data-icon="favorite">favorite</span>
+</div>
+</header>
+<main class="pt-24 pb-space-xl max-w-[1024px] mx-auto px-container-margin md:px-0 flex flex-col items-center">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row items-center justify-center min-h-[716px] gap-space-xl w-full">
+<div class="w-full md:w-1/2 flex justify-center">
+<img alt="A cute, childish, and very simple cartoon python mascot for a learning app. Flat design, minimal detail, large friendly eyes, bright green body with soft yellow accents." class="w-64 h-64 object-cover rounded-full border-4 border-surface-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLSngWn1-yAQVq887laHXk2w0__2pTFXBbx4SYkt6wivaxSj9VG2KOZSWSOQO-1rrYTU6BNRaA8t5f6rRNSPyT2X8l3DPSSsprDiLeH5buWuR8Pr4pOqkGrb5fwfkN-PGyh-4RhTXW_C70E_9iByJDJ3Kvl-nEWFYbX7oLnMphYbG4JSjTnbKqnua9vTfrSlFH7VIQ_xeZz31F1qMxz6_owjuJEsvRI00JnR8BOW5YQwq3TDdoUAr7a8dZ-6m2LC8vO4Nj-ZFhk6Yc8pI">
+</div>
+<div class="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left gap-space-lg">
+<h1 class="font-display-lg-mobile md:font-display-lg text-on-surface">The free, fun, and effective way to learn Python!</h1>
+<div class="flex flex-col gap-space-sm w-full max-w-sm">
+<button class="bg-primary text-on-primary font-headline-md text-headline-md py-space-md px-space-lg rounded-xl squish-btn-primary w-full uppercase tracking-wide transition-all">GET STARTED</button>
+<button class="bg-surface-container-highest text-on-surface font-headline-md text-headline-md py-space-md px-space-lg rounded-xl squish-btn-secondary w-full uppercase tracking-wide transition-all border-2 border-surface-variant">I ALREADY HAVE AN ACCOUNT</button>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="w-full py-space-xl grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-surface-container-high rounded-xl p-space-lg border-2 border-surface-variant flex flex-col items-center text-center gap-space-md hover:border-primary transition-colors cursor-default">
+<div class="bg-secondary text-on-secondary-fixed p-space-sm rounded-full mb-space-sm">
+<span class="material-symbols-outlined text-[48px]" data-icon="videogame_asset">videogame_asset</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Learn through play</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Bite-sized lessons feel like a game to keep you coming back for more.</p>
+</div>
+<div class="bg-surface-container-high rounded-xl p-space-lg border-2 border-surface-variant flex flex-col items-center text-center gap-space-md hover:border-secondary transition-colors cursor-default">
+<div class="bg-primary text-on-primary-fixed p-space-sm rounded-full mb-space-sm">
+<span class="material-symbols-outlined text-[48px]" data-icon="local_fire_department">local_fire_department</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Stay motivated</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Build streaks, earn gems, and unlock achievements as you master Python.</p>
+</div>
+<div class="bg-surface-container-high rounded-xl p-space-lg border-2 border-surface-variant flex flex-col items-center text-center gap-space-md hover:border-tertiary transition-colors cursor-default">
+<div class="bg-tertiary text-on-tertiary-fixed p-space-sm rounded-full mb-space-sm">
+<span class="material-symbols-outlined text-[48px]" data-icon="group">group</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Python for everyone</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">From complete beginners to advanced coders, our curriculum adapts to you.</p>
+</div>
+</section>
+<!-- Sample Code Snippet Area -->
+<section class="w-full py-space-lg flex flex-col items-center gap-space-lg">
+<h2 class="font-display-lg-mobile text-display-lg-mobile text-on-surface text-center">Write Real Code</h2>
+<div class="bg-[#0F171A] rounded-xl border-2 border-surface-variant p-space-lg w-full max-w-2xl font-label-code text-label-code shadow-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-8 bg-surface-container flex items-center px-space-sm gap-2 border-b-2 border-surface-variant">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+</div>
+<pre class="pt-8 text-on-surface-variant"><span class="text-primary">def</span> <span class="text-tertiary">greet_learner</span>(name):
+    <span class="text-secondary">"""Start your Python journey!"""</span>
+    <span class="text-primary">if</span> name == <span class="text-secondary">"Ready"</span>:
+        <span class="text-primary">return</span> <span class="text-secondary">"Let's Go!"</span>
+    <span class="text-primary">return</span> <span class="text-secondary">"Keep Practicing!"</span>
+
+<span class="text-tertiary">print</span>(greet_learner(<span class="text-secondary">"Ready"</span>))
+                </pre>
+</div>
+</section>
+</main>
+
+
+
+
+
+
+</body></html>

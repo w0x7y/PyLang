@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=JetBrains+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import '../../css/variables.css';
+
+/* ── Reset ────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font: var(--font-body-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg) var(--container-margin);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Dot-grid background ──────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.10;
+  background-image: radial-gradient(circle at 2px 2px, var(--outline) 1px, transparent 0);
+  background-size: 32px 32px;
+  z-index: 0;
+}
+
+/* ── Page header (logo) ───────────────────────────────────────── */
+.page-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  z-index: 1;
+}
+
+.page-header a {
+  text-decoration: none;
+}
+
+.logo-wordmark {
+  font: var(--font-display-lg);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--primary);
+  letter-spacing: var(--letter-spacing-display-lg);
+  text-transform: uppercase;
+  display: block;
+}
+
+.logo-tagline {
+  font: var(--font-body-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface-variant);
+  margin-top: var(--space-xs);
+}
+
+/* ── Auth card ────────────────────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: var(--surface);
+  border: 2px solid #37464f;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 0 0 var(--surface-container-low);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  z-index: 1;
+  margin-top: 2px; /* visual room for the box-shadow */
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────── */
+.auth-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 2px solid var(--surface-container-highest);
+  padding-bottom: var(--space-sm);
+}
+
+.tab-btn {
+  flex: 1;
+  font: var(--font-headline-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface-variant);
+  background: none;
+  border: none;
+  border-bottom: 4px solid transparent;
+  padding: var(--space-sm);
+  text-align: center;
+  cursor: pointer;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: color 0.2s, background-color 0.2s;
+  margin-bottom: -2px; /* overlap the card border-bottom */
+}
+
+.tab-btn:hover {
+  color: var(--on-surface);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  background-color: var(--surface-container-high);
+}
+
+/* ── Form ─────────────────────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field-label {
+  font: var(--font-label-caps);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface-variant);
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-link {
+  font: var(--font-label-caps);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--tertiary);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.field-link:hover {
+  color: #a1c9ff; /* tertiary-fixed-dim */
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--on-surface-variant);
+  font-size: 20px;
+  pointer-events: none;
+  font-variation-settings: 'FILL' 1;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.auth-input {
+  width: 100%;
+  background-color: var(--surface-container-lowest);
+  border: 2px solid var(--surface-container-highest);
+  border-radius: var(--radius-lg);
+  padding: 12px var(--space-md) 12px 48px;
+  font: var(--font-body-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+
+.auth-input::placeholder {
+  color: var(--on-surface-variant);
+  opacity: 0.6;
+}
+
+.auth-input:focus {
+  border-color: var(--primary);
+}
+
+/* ── Squish buttons ───────────────────────────────────────────── */
+.squish-btn {
+  position: relative;
+  font: var(--font-headline-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+}
+
+.squish-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 4px;
+  border-radius: inherit;
+  z-index: -1;
+  transition: all 0.1s ease;
+}
+
+.squish-btn:active {
+  transform: translateY(4px);
+}
+
+.squish-btn:active::after {
+  height: 0;
+  bottom: 0;
+}
+
+/* Primary variant */
+.squish-btn-primary {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  margin-top: var(--space-sm);
+}
+
+/* Secondary variant */
+.squish-btn-secondary {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+  border: 2px solid var(--surface-container-highest);
+  font: var(--font-body-lg);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.squish-btn-secondary:hover {
+  background-color: var(--surface-container-highest);
+}
+
+/* ── Divider ──────────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.divider-line {
+  flex-grow: 1;
+  border: none;
+  border-top: 2px solid var(--surface-container-highest);
+}
+
+.divider-label {
+  font: var(--font-label-caps);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface-variant);
+  letter-spacing: var(--letter-spacing-label-caps);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* ── Social buttons ───────────────────────────────────────────── */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.social-btn-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* ── Bottom link ──────────────────────────────────────────────── */
+.bottom-link {
+  margin-top: var(--space-lg);
+  text-align: center;
+  z-index: 1;
+}
+
+.bottom-link p {
+  font: var(--font-body-md);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--on-surface-variant);
+}
+
+.bottom-link a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bottom-link a:hover {
+  color: #87fe45; /* primary-fixed */
+}
+
+/* ── Animations ───────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-header  { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.auth-card    { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards; opacity: 0; }
+.bottom-link  { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 160ms forwards; opacity: 0; }
