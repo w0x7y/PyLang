@@ -1,0 +1,92 @@
+@import '/landing_page/css/variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-family-sans);
+  margin: 0;
+  padding: 0;
+}
+
+.shop-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.shop-page h1 {
+    font: var(--font-display-lg);
+    letter-spacing: var(--letter-spacing-display-lg);
+    color: var(--on-surface);
+}
+
+.shop-page p {
+    font: var(--font-body-lg);
+    color: var(--on-surface-variant);
+}
+
+/* --- Base Icon Setup --- */
+.icon-filled {
+  font-size: 24px;
+  font-variation-settings: 'FILL' 1;
+}
+
+/* --- Component Styles --- */
+
+/* Hidden on mobile, flex on desktop (md: 768px) */
+.nav-banner {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-banner {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: none; 
+    z-index: 30;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}
+
+.stats-container {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  background-color: var(--surface-container);
+  border-radius: var(--radius-xl); /* rounded-2xl maps to 1.5rem */
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid var(--surface-bright);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm); /* gap-2 -> 8px */
+  font: var(--font-headline-md);
+}
+
+/* Vertical Dividers */
+.divider {
+  width: 1px;
+  height: 24px; /* h-6 */
+  background-color: var(--outline-variant);
+}
+
+/* Color Modifiers using your exact tokens */
+.text-secondary { 
+  color: var(--secondary); 
+}
+.text-tertiary { 
+  /* Maps to your tertiary-container intention */
+  color: var(--tertiary); 
+}
+.text-error { 
+  color: var(--error); 
+}

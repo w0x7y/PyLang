@@ -1,0 +1,27 @@
+@import '/landing_page/css/variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+body {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-family-sans);
+  margin: 0;
+  padding: 0;
+}
+
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.profile-page h1 {
+    font: var(--font-display-lg);
+    letter-spacing: var(--letter-spacing-display-lg);
+    color: var(--on-surface);
+}
+
+.profile-page p {
+    font: var(--font-body-lg);
+    color: var(--on-surface-variant);
+}
