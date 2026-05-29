@@ -63,5 +63,13 @@ function updateProgressBar(completed, total) {
     }
 }
 
-// Automatically trigger calculations once the DOM finishes loading
-window.addEventListener('DOMContentLoaded', colorizePath);
+function initLearnPage() {
+    colorizePath();
+}
+
+// SPA-loaded fragments are inserted after DOMContentLoaded has already fired.
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', initLearnPage);
+} else {
+    initLearnPage();
+}

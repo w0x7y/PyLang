@@ -120,10 +120,37 @@ svg {
 
 /* Main Content */
 
-main {
+main:not(#app) {
     margin-left: 300px;
 
     padding: var(--space-xl);
+}
+
+#app {
+    margin-left: 300px;
+    min-height: 100vh;
+    padding: var(--space-xl);
+    box-sizing: border-box;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+    will-change: opacity, transform;
+}
+
+#app.is-leaving,
+#app.is-entering {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+#app.route-code {
+    padding: 0;
+}
+
+#app.route-code .code-shell {
+    margin-left: 0;
 }
 
 /* Scrollbar */
@@ -175,7 +202,15 @@ main {
         display: none;
     }
 
-    main {
+    main:not(#app) {
         margin-left: 110px;
+    }
+
+    #app {
+        margin-left: 110px;
+    }
+
+    #app.route-code .code-shell {
+        margin-left: 0;
     }
 }
